@@ -10,6 +10,12 @@ top = '.'
 out = 'build'
 
 def options(ctx):
+    import sys
+
+    # check version numbers here because options() is called before any other command-handling function
+    if (sys.hexversion < 0x2060000 or 0x3000000 <= sys.hexversion ):
+        ctx.fatal('Pyhon 2.6 or Python 2.7 is required to build BDE using waf.')
+
     ctx.load('bdewscript', tooldir = os.path.join('tools', 'waf', 'bde'))
 
 

@@ -183,7 +183,7 @@ class Options(object):
 
 class Ufid(object):
     VALID_FLAGS = [('64', '32'),
-                   ('dbg', 'opt'),
+                   ('dbg', 'opt', 'prf'),
                    ('safe', 'safe2'),
                    ('cpp11'),
                    ('exc'),

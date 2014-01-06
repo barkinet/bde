@@ -84,7 +84,7 @@ def _make_ufid_from_options(opts):
 
     ufid_map = {
         'abi_bits': { '64': '64' },
-        'build_type': { 'debug': 'dbg', 'release': 'opt' },
+        'build_type': { 'debug': 'dbg', 'release': 'opt', 'profile': ['dbg', 'prf'] },
         'assert_level': { 'safe': 'safe', 'safe2': 'safe2' },
         'cpp11': { True: 'cpp11' },
         'noexception': { False: 'exc' },
@@ -96,7 +96,11 @@ def _make_ufid_from_options(opts):
         attr = getattr(opts, opt, None)
         if attr is not None:
             if attr in ufid_map[opt]:
-                ufid.append(ufid_map[opt][attr])
+                flags = ufid_map[opt][attr]
+                if isinstance(flags, list):
+                    ufid.extend(flags)
+                else:
+                    ufid.append(flags)
 
 
     # always use mt
@@ -234,8 +238,8 @@ def _add_commandline_options(ctx):
         (('b', 'build-type'),
          {'type': 'choice',
           'default': 'debug',
-          'choices': ('release', 'debug'),
-          'help': "the type of build to produce: 'debug' or 'release' [default: %default]"}),
+          'choices': ('release', 'debug', 'profile'),
+          'help': "the type of build to produce: 'debug', 'release' or 'profile' [default: %default]"}),
         (('t', 'library-type'),
          {'type': 'choice',
           'default': 'static',

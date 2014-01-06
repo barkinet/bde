@@ -296,6 +296,22 @@ windows         dbg DBG_LIBSUFFIX   = d
 *           _   BDE_LDFLAGS = $(DBG_LDFLAGS)
 
 #==============================================================================
+# Profile builds
+
+*           _   PRF_CXXFLAGS =
+*           _   PRF_LDFLAGS =
+
+#===
+
+!! unix-*-*-*-gcc        prf     PRF_CXXFLAGS    = --coverage
+!! unix-*-*-*-gcc        prf     PRF_LDFLAGS     = --coverage
+
+#===
+
+*           _   BDE_CXXFLAGS = $(PRF_CXXFLAGS)
+*           _   BDE_LDFLAGS = $(PRF_LDFLAGS)
+
+#==============================================================================
 # Safe builds
 
 # Prevent ambiguity for operators in safe mode:

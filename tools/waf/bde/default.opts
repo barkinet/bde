@@ -117,21 +117,6 @@
 #-# These configured values will be replaced with a mechanism to evaluate   #-#
 #-# the actual compiler version in due course #-#
 
-*           _   BDE_COMPILERVERSION_FLAG = 0
-# For Windows, Uplid.pm deduces compiler version from availble cl.exe.
-# Let's set this to a bogus value here.
-!! windows                    _       BDE_COMPILERVERSION_FLAG = 999.999
-!! unix-SunOS-*-*-cc          _       BDE_COMPILERVERSION_FLAG = 5.11
-!! unix-SunOS-i386-*-cc       _       BDE_COMPILERVERSION_FLAG = 5.11
-!! unix-SunOS-i386-*-cc      64       BDE_COMPILERVERSION_FLAG = 5.11
-!! unix-SunOS-*-*-gcc         _       BDE_COMPILERVERSION_FLAG = 4.3.2
-!! unix-AIX-*-*-gcc           _       BDE_COMPILERVERSION_FLAG = 3.4.3
-!! unix-AIX-*-*-xlc           _       BDE_COMPILERVERSION_FLAG = 11.2
-!! unix-Linux                 _       BDE_COMPILERVERSION_FLAG = 3.4.6
-!! unix-Linux-x86_64-2.6.18   _       BDE_COMPILERVERSION_FLAG = 4.1.2
-!! unix-Darwin                _       BDE_COMPILERVERSION_FLAG = 4.2.1
-!! unix-NONSUCH               _       BDE_COMPILERVERSION_FLAG = <Uncollapsed!>
-
 # The default command line option separator.  It's '-' on most platforms,
 # and '/' on Windows
 *                       _       SWITCHCHAR = -

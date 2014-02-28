@@ -267,17 +267,25 @@ class Uplid(object):
          return '-'.join([self.uplid[a] for a in attrs])
 
     def match(self, other):
-        if not match_str(self.uplid['os_type'], other.uplid['os_type']): return False
-        if not match_str(self.uplid['os_name'], other.uplid['os_name']): return False
-        if not match_str(self.uplid['cpu_type'], other.uplid['cpu_type']): return False
+        if not match_str_options(self.uplid['os_type'], other.uplid['os_type']):
+            return False
+
+        if not match_str_options(self.uplid['os_name'], other.uplid['os_name']):
+            return False
+
+        if not match_str_options(self.uplid['cpu_type'], other.uplid['cpu_type']):
+            return False
+
         if not match_ver(self.uplid['os_ver'], other.uplid['os_ver']): return False
 
-        if not match_str(self.uplid['comp_type'], other.uplid['comp_type']):
+        if not match_str_options(self.uplid['comp_type'], other.uplid['comp_type']):
             global DEFAULT_COMPILER
-            if not (self.uplid['comp_type'] == 'def' and DEFAULT_COMPILER == other.uplid['comp_type']):
+            if not ((self.uplid['comp_type'] == 'def') and (other.uplid['comp_type'] == DEFAULT_COMPILER)):
                 return False
 
-        if not match_ver(self.uplid['comp_ver'], other.uplid['comp_ver']): return False
+        if not match_ver(self.uplid['comp_ver'], other.uplid['comp_ver']):
+            return False
+
         return True
 
 
@@ -295,6 +303,19 @@ def match_str(a, b):
          return True
     return a == b
 
+
+def match_str_options(a, b):
+    if match_str(a, b):
+        return True
+
+    # check if 'a' is a list of options, and if so, find out whether
+    # 'b' is in the list
+    alist = a.split('|')
+    if len(alist) > 1:
+        if b in alist:
+            return True
+
+    return False
 
 def match_ver(a, b):
     if not a or a == '*' or not b or b == '*':

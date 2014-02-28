@@ -38,6 +38,12 @@
 #   The UPLID can be incomplete, or use '*' to indicate fields that match all
 #   possible values.
 #
+#   In some fields of the UPLID, a list of options can be provided, if they are
+#   separated by '|' characters. The wildcard '*' cannot be one of the options,
+#   but it would be illogical to use it as one since the other options would be
+#   irrelevant. Options are supported in the first field (os_type), second field
+#   (os_name), third field (cpu_type) and fifth field (comp_type).
+#
 # * UFID (Unified Flag ID) set: The record will *not* match if this UFID
 #   contains flags that are *not* set in the UFID requested by the builder.
 #   '_' matches any UFID. This field may now contain multiple flags in the

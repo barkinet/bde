@@ -59,71 +59,71 @@
 # include a line like this into any derived opts file to have a list of which
 # files were used to derive a list of values added as a value of the list.
 
-*-          _   OPTS_FILE   = default.opts
+*				_	OPTS_FILE	= default.opts
 
 #==============================================================================
 # Metadata
 #==============================================================================
 
-*           _       BUILD_TYPE  =
+*				_	BUILD_TYPE	=
 
-*           dbg     BUILD_TYPE  = -DBDE_BUILD_TARGET_DBG
+*				dbg	BUILD_TYPE	= -DBDE_BUILD_TARGET_DBG
 
 # if BDE_BUILD_TARGET_NO_EXC is NOT defined, bsls_buildtarget.h will define
 # BDE_BUILD_TARGET_EXC.
-*           _       EXC_BUILD_TYPE = -DBDE_BUILD_TARGET_NO_EXC
-!! *        exc     EXC_BUILD_TYPE = -DBDE_BUILD_TARGET_EXC
+*				_	EXC_BUILD_TYPE	= -DBDE_BUILD_TARGET_NO_EXC
+!! *				exc	EXC_BUILD_TYPE	= -DBDE_BUILD_TARGET_EXC
 
-*           _       BUILD_TYPE  = $(EXC_BUILD_TYPE)
+*				_	BUILD_TYPE	= $(EXC_BUILD_TYPE)
 
-*           ndebug  BUILD_TYPE  = -DBDE_BUILD_TARGET_NDEBUG
-*           mt      BUILD_TYPE  = -DBDE_BUILD_TARGET_MT
-*           opt     BUILD_TYPE  = -DBDE_BUILD_TARGET_OPT
-*           shr     BUILD_TYPE  = -DBDE_BUILD_TARGET_SHR
-*           win     BUILD_TYPE  = -DBDE_BUILD_TARGET_WINDOWED
-*           safe    BUILD_TYPE  = -DBDE_BUILD_TARGET_SAFE
-*           safe2   BUILD_TYPE  = -DBDE_BUILD_TARGET_SAFE_2
-*           stlport BUILD_TYPE  = -DBDE_BUILD_TARGET_STLPORT
-*           cpp11   BUILD_TYPE  = -DBDE_BUILD_TARGET_CPP11
+*				ndebug	BUILD_TYPE	= -DBDE_BUILD_TARGET_NDEBUG
+*				mt	BUILD_TYPE	= -DBDE_BUILD_TARGET_MT
+*				opt	BUILD_TYPE	= -DBDE_BUILD_TARGET_OPT
+*				shr	BUILD_TYPE	= -DBDE_BUILD_TARGET_SHR
+*				win	BUILD_TYPE	= -DBDE_BUILD_TARGET_WINDOWED
+*				safe	BUILD_TYPE	= -DBDE_BUILD_TARGET_SAFE
+*				safe2	BUILD_TYPE	= -DBDE_BUILD_TARGET_SAFE_2
+*				stlport	BUILD_TYPE	= -DBDE_BUILD_TARGET_STLPORT
+*				cpp11	BUILD_TYPE	= -DBDE_BUILD_TARGET_CPP11
 
-*           _   BDE_CFLAGS    = $(BUILD_TYPE)
-*           _   BDE_CXXFLAGS  = $(BUILD_TYPE)
+*				_	BDE_CFLAGS	= $(BUILD_TYPE)
+*				_	BDE_CXXFLAGS	= $(BUILD_TYPE)
 
 
 # Portable linker symbols
 
-!! unix-*                           _   BDE_STATIC = -Bstatic
-!! unix-AIX-*                       _   BDE_STATIC = -bstatic
-!! unix-Linux-*                     _   BDE_STATIC =
-!! windows-*                        _   BDE_STATIC =
+!! unix				_	BDE_STATIC	= -Bstatic
+!! unix-AIX			_	BDE_STATIC	= -bstatic
+!! unix-Linux			_	BDE_STATIC	=
+!! windows			_	BDE_STATIC	=
 
-!! unix-*                           _   BDE_DYNAMIC = -Bdynamic
-!! unix-AIX-*                       _   BDE_DYNAMIC = -bdynamic
-!! unix-Linux-*                     _   BDE_DYNAMIC =
-!! windows-*                        _   BDE_DYNAMIC =
+!! unix				_	BDE_DYNAMIC	= -Bdynamic
+!! unix-AIX			_	BDE_DYNAMIC	= -bdynamic
+!! unix-Linux			_	BDE_DYNAMIC	=
+!! windows			_	BDE_DYNAMIC	=
 
 #-# This variable converts 'def' to a specific compiler, i.e. it upgrades   #-#
 #-# the UPLID if no specific compiler ID has been chosen. The ID is the 5th #-#
 #-# element of the UPLID, so 'gcc' maps to 'g++' in the CXX variable, etc.  #-#
 
-*                       _       BDE_COMPILER_FLAG        = def
-!! windows              _       BDE_COMPILER_FLAG        = cl
-!! unix-SunOS           _       BDE_COMPILER_FLAG        = cc
-!! unix-AIX             _       BDE_COMPILER_FLAG        = xlc
-!! unix-Linux           _       BDE_COMPILER_FLAG        = gcc
-!! unix-Darwin          _       BDE_COMPILER_FLAG        = gcc
-!! unix-NONSUCH         _       BDE_COMPILER_FLAG        = <Uncollapsed!>
+*				_	BDE_COMPILER_FLAG	= def
+!! windows			_	BDE_COMPILER_FLAG	= cl
+!! unix-SunOS			_	BDE_COMPILER_FLAG	= cc
+!! unix-AIX			_	BDE_COMPILER_FLAG	= xlc
+!! unix-Linux			_	BDE_COMPILER_FLAG	= gcc
+!! unix-Darwin			_	BDE_COMPILER_FLAG	= gcc
+!! unix-NONSUCH			_	BDE_COMPILER_FLAG	= <Uncollapsed!>
 
 #-# These configured values will be replaced with a mechanism to evaluate   #-#
 #-# the actual compiler version in due course #-#
 
 # The default command line option separator.  It's '-' on most platforms,
 # and '/' on Windows
-*                       _       SWITCHCHAR = -
-!! windows              _       SWITCHCHAR = /
+*				_	SWITCHCHAR	= -
+!! windows			_	SWITCHCHAR	= /
 
 # Flag to add a directory to the include path for compilation step
-!! *                    _       INCPATH_FLAG = $(SWITCHCHAR)I
+!! *				_	INCPATH_FLAG	= $(SWITCHCHAR)I
 
 #==============================================================================
 # C++11 (a.k.a. C++0x) support
@@ -153,12 +153,12 @@
 #===
 
 unix-*-*-*-gcc			_	DEF_CFLAGS      = -pipe -std=gnu99
-unix-*				_	DEF_CFLAGS      = -I$(DEPLOYED_INCLUDE)
+unix				_	DEF_CFLAGS      = -I$(DEPLOYED_INCLUDE)
 
 !! unix-SunOS-*-*-cc-5.9	_	DEF_CXXFLAGS    = -m32 -xarch=sparcvis -xchip=generic -xcache=generic
 !! unix-SunOS-*-*-cc-5.9	64	DEF_CXXFLAGS    = -m64 -xarch=sparcvis -xchip=generic -xcache=generic
 !! unix-SunOS-*-*-CC64		_	DEF_CXXFLAGS    =
-!! unix-AIX-*-*-xlc-*		_	AIX_UNLOCK_STREAMS = -D__NOLOCK_ON_INPUT -D__NOLOCK_ON_OUTPUT
+!! unix-AIX-*-*-xlc		_	AIX_UNLOCK_STREAMS = -D__NOLOCK_ON_INPUT -D__NOLOCK_ON_OUTPUT
 !! unix-AIX-*-*-xlc-10.0	_	DEF_CXXFLAGS    = $(ARCH_TUNE) -qnotempinc -qfuncsect -qtbtable=small -qrtti=all -qsuppress=1500-029 -qsuppress=1540-2910 -qsuppress=1501-201 -qxflag=tocrel -qxflag=dircache:71,100 $(ENABLE_TLS) $(AIX_UNLOCK_STREAMS)
 # inline rather than inline and optimize
 !! unix-*-*-*-gcc		_	DEF_CXXFLAGS    = -pipe
@@ -185,7 +185,7 @@ unix-SunOS-*-*-cc-5.11		_	DEF_CXXFLAGS    = -xannotate=no
 # builds only.
 # For VS2003, /Zc:wchar_t and /Zc:forScope must be added, they are the default
 # since VS2005.
-!! windows-*			_	NOGDI           = /DNOGDI
+!! windows			_	NOGDI           = /DNOGDI
 !! windows-*-*-*-cl-15.00	_	DEF_CFLAGS      = /nologo /Oi /bigobj /we4715 /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /DNOMINMAX $(NOGDI) $(WIN_VERSION_FLAGS)
 !! windows-*-*-*-cl-15.00	_	DEF_CXXFLAGS    = /nologo /Oi /bigobj /we4715 /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /DNOMINMAX $(NOGDI) /GR /wd4661 /we4150 /wd4510 /wd4610 $(WIN_VERSION_FLAGS)
 !! windows-*-*-*-cl-16.00	_	DEF_CFLAGS      = /nologo /Oi /bigobj /we4715 /D_CRT_SECURE_NO_DEPRECATE /D_SCL_SECURE_NO_DEPRECATE /DNOMINMAX $(NOGDI) $(WIN_VERSION_FLAGS)
@@ -193,13 +193,13 @@ unix-SunOS-*-*-cc-5.11		_	DEF_CXXFLAGS    = -xannotate=no
 
 # DRQS 13597546 - add -bmaxdata:0x5000000 to work around new exception issues
 # and match our production setup
-!! unix-AIX-*			_	DEF_LDFLAGS	= -qstaticinit=ld -qtwolink -bh:5 -bmaxdata:0x50000000 $(XLC_SPECIAL_BBINDER_FLAGS) $(ARCH_TUNE)
+!! unix-AIX			_	DEF_LDFLAGS	= -qstaticinit=ld -qtwolink -bh:5 -bmaxdata:0x50000000 $(XLC_SPECIAL_BBINDER_FLAGS) $(ARCH_TUNE)
 !! unix-AIX-*-*-gcc		_	DEF_LDFLAGS	=
 unix-AIX-*-*-CC64		_	DEF_LDFLAGS	= -b64
 unix-AIX-*-*-xlc		64	DEF_LDFLAGS	= -b64
 
 # some POSIX API is provided in librt on Linux
-unix-Linux-*-*-*		_	DEF_ENDLDFLAGS	= -lrt
+unix-Linux			_	DEF_ENDLDFLAGS	= -lrt
 
 #===
 
@@ -220,10 +220,10 @@ unix				_	BDE_LDFLAGS	= $(INTERNAL_LDFLAGS)
 
 #===
 
-!! unix-SunOS-*-*-*		_	EXC_CXXFLAGS	= -features=no%except
-!! unix-SunOS-*-*-*		exc	EXC_CXXFLAGS	= -features=except
-!! unix-AIX-*-*-*		_	EXC_CXXFLAGS	= -qnoeh
-!! unix-AIX-*-*-*		exc	EXC_CXXFLAGS	= -qeh -qlanglvl=newexcp
+!! unix-SunOS			_	EXC_CXXFLAGS	= -features=no%except
+!! unix-SunOS			exc	EXC_CXXFLAGS	= -features=except
+!! unix-AIX			_	EXC_CXXFLAGS	= -qnoeh
+!! unix-AIX			exc	EXC_CXXFLAGS	= -qeh -qlanglvl=newexcp
 !! unix-*-*-*-gcc		_	EXC_CXXFLAGS	= -fno-exceptions
 !! unix-*-*-*-gcc		exc	EXC_CXXFLAGS	= -fexceptions
 # /EHsc is equivalent to /GX and supported since a least VC2003
@@ -245,7 +245,7 @@ unix				_	BDE_LDFLAGS	= $(INTERNAL_LDFLAGS)
 !! unix				dbg	DBG_CFLAGS	= -g
 
 !! unix				dbg	DBG_CXXFLAGS	= -g
-!! unix-SunOS-*-*-*-*		dbg	DBG_CXXFLAGS	= -g0
+!! unix-SunOS			dbg	DBG_CXXFLAGS	= -g0
 !! unix-SunOS-*-*-cc-5.9	dbg	DBG_CXXFLAGS	= -g0 -xdebugformat=stabs
 # -Q suppressed above
 !! unix-AIX-*-*-xlc-10.0	dbg	DBG_CXXFLAGS	= -qxflag=v6align -g -qalias=noansi -qxflag=inlinewithdebug  -qlanglvl=staticstoreoverlinkage -Q -qxflag=noautoinline
@@ -366,13 +366,13 @@ unix				ndebug	NDEBUG_CXXFLAGS	= -DNDEBUG
 
 unix				mt	MT_CFLAGS	= -D_REENTRANT
 
-!! unix-SunOS-*-*-*		mt	MT_CXXFLAGS	= -D_POSIX_PTHREAD_SEMANTICS -mt
-!! unix-AIX-*-*-*		mt	MT_CXXFLAGS	= -D_THREAD_SAFE -qthreaded -D_REENTRANT
+!! unix-SunOS			mt	MT_CXXFLAGS	= -D_POSIX_PTHREAD_SEMANTICS -mt
+!! unix-AIX			mt	MT_CXXFLAGS	= -D_THREAD_SAFE -qthreaded -D_REENTRANT
 !! unix-*-*-*-gcc		mt	MT_CXXFLAGS	= -D_POSIX_PTHREAD_SEMANTICS -D_REENTRANT
 !! unix-SunOS-*-*-gcc		mt	MT_CXXFLAGS	= -D_POSIX_PTHREAD_SEMANTICS -D_REENTRANT -pthreads
 
 # On SUN, we need to add -D_PTHREADS to compile in safe mode (don't know why).
-!! unix-SunOS-*-*-*		mt_safe	MT_CXXFLAGS	= -D_POSIX_PTHREAD_SEMANTICS -mt -D_PTHREADS
+!! unix-SunOS			mt_safe	MT_CXXFLAGS	= -D_POSIX_PTHREAD_SEMANTICS -mt -D_PTHREADS
 !! unix-SunOS-*-*-gcc		mt_safe	MT_CXXFLAGS	= -D_POSIX_PTHREAD_SEMANTICS -D_REENTRANT -D_PTHREADS -pthreads
 !! unix-AIX-*-*-gcc		mt_safe	MT_CXXFLAGS	= -D_POSIX_PTHREAD_SEMANTICS -D_REENTRANT -D_PTHREADS
 
@@ -380,12 +380,12 @@ unix				mt	MT_CFLAGS	= -D_REENTRANT
 windows				_	MT_LIBTYPE	= L
 !! windows			mt	MT_LIBTYPE	= T
 
-!! unix-SunOS-*-*-*		mt	MT_LDFLAGS	= -Bdynamic -mt $(SHR_PRELDFLAGS)
-!! unix-AIX-*-*-*		mt	MT_LDFLAGS	= -bdynamic -lpthread $(SHR_PRELDFLAGS) -qthreaded
+!! unix-SunOS			mt	MT_LDFLAGS	= -Bdynamic -mt $(SHR_PRELDFLAGS)
+!! unix-AIX			mt	MT_LDFLAGS	= -bdynamic -lpthread $(SHR_PRELDFLAGS) -qthreaded
 !! unix-SunOS-*-*-gcc		mt	MT_LDFLAGS	= -lthread
 !! unix-AIX-*-*-gcc		mt	MT_LDFLAGS	= -lpthread
-!! unix-Linux-*-*-*		mt	MT_LDFLAGS	= -lpthread
-!! unix-Darwin-*-*-*		mt	MT_LDFLAGS	= -lpthread
+!! unix-Linux			mt	MT_LDFLAGS	= -lpthread
+!! unix-Darwin		mt	MT_LDFLAGS	= -lpthread
 
 #===
 
@@ -542,7 +542,7 @@ unix-SunOS-*-*-gcc		_	CXX		= -ftemplate-depth-150
 
 # for development only; use Clang instead of gcc
 !! unix-Linux-*-*-gcc-clang	_	CLANG_GCC_VER_CPP	= -D__CLANG_GNUC__=4 -D__CLANG_GNUC_MINOR__=7 -D__CLANG_GNUC_PATCHLEVEL__=0
-!! unix-Darwin-*-*-*		_	CLANG_GCC_VER_CPP	= -D__CLANG_GNUC__=4 -D__CLANG_GNUC_MINOR__=2 -D__CLANG_GNUC_PATCHLEVEL__=1
+!! unix-Darwin			_	CLANG_GCC_VER_CPP	= -D__CLANG_GNUC__=4 -D__CLANG_GNUC_MINOR__=2 -D__CLANG_GNUC_PATCHLEVEL__=1
 !! unix-Linux-*-*-gcc-clang	_	CLANG_PATH	= clang
 !! unix-Linux-*-*-gcc-clang	_	CLANGXX_PATH	= clang++
 
@@ -556,7 +556,7 @@ unix-SunOS-*-*-gcc		_	CXX		= -ftemplate-depth-150
 unix				_	CXXLINK		= $(CXX)
 unix				_	CLINK		= $(CXXLINK)
 windows				_	CXXLINK		= $(RETRY_ON_SIGNAL) link /nologo /incremental:no /subsystem:console /machine:ix86 ws2_32.lib
-!! windows-*-amd64-*-*		_	CXXLINK		= $(RETRY_ON_SIGNAL) link /nologo /incremental:no /subsystem:console /machine:X64 ws2_32.lib
+!! windows-*-amd64		_	CXXLINK		= $(RETRY_ON_SIGNAL) link /nologo /incremental:no /subsystem:console /machine:X64 ws2_32.lib
 windows				_	CLINK		= $(CXXLINK)
 
 #==============================================================================

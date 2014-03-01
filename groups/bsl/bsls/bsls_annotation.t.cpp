@@ -103,7 +103,7 @@
 // compiler (e.g., 'BSLS_PLATFORM_CMP_GNU' is defined).  Also note that there
 // are minimum version requirements for several annotations; otherwise they are
 // undefined.  Finally note that, if defined, the values for
-// 'BSLS_PLATFORM_CMP_GNU' and 'BSLS_PLATFORM_CMP_VER_MAJOR' are output when
+// 'BSLS_PLATFORM_CMP_GNU' and 'BSLS_PLATFORM_CMP_VERSION' are output when
 // the BREATHING TEST is run in verbose mode.
 //..
 //  +--------------------------------+------------------------------------+
@@ -526,8 +526,11 @@ int main(int argc, char **argv)
 #ifdef BSLS_PLATFORM_CMP_GNU
             P(BSLS_PLATFORM_CMP_GNU);
 #endif
-#ifdef BSLS_PLATFORM_CMP_VER_MAJOR
-           P(BSLS_PLATFORM_CMP_VER_MAJOR);
+#ifdef BSLS_PLATFORM_CMP_CLANG
+            P(BSLS_PLATFORM_CMP_CLANG);
+#endif
+#ifdef BSLS_PLATFORM_CMP_VERSION
+           P(BSLS_PLATFORM_CMP_VERSION);
 #endif
         }
 

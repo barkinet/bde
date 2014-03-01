@@ -351,7 +351,7 @@ struct ByteOrder_Util {
 // ----------------------------------------------------------------------------
 // LINUX
 #if (defined(BSLS_PLATFORM_CPU_X86) || defined(BSLS_PLATFORM_CPU_X86_64))   \
-  && defined(BSLS_PLATFORM_CMP_GNU)
+    && (defined(BSLS_PLATFORM_CMP_GNU) || defined(BSLS_PLATFORM_CMP_CLANG))
 
 namespace bsls {
 
@@ -411,7 +411,7 @@ ByteOrder_Util_x86_swap_64(const Types::Uint64 x)
 }  // close package namespace
 
 #endif  // BSLS_PLATFORM_CPU_32_BIT
-#endif  // BSLS_PLATFORM_CMP_GNU && X86
+#endif  // (BSLS_PLATFORM_CPU_X86 || BSLS_PLATFORM_CPU_X86_64) && (BSLS_PLATFORM_CMP_GNU || BSLS_PLATFORM_CMP_CLANG)
 
 // ----------------------------------------------------------------------------
 // HP
@@ -647,7 +647,7 @@ ByteOrder_Util::generic_swap_16(unsigned short x)
     return _byteswap_ushort(x);
 
 #elif (defined(BSLS_PLATFORM_CPU_X86) || defined(BSLS_PLATFORM_CPU_X86_64)) \
-    && defined(BSLS_PLATFORM_CMP_GNU)
+      && (defined(BSLS_PLATFORM_CMP_GNU) || defined(BSLS_PLATFORM_CMP_CLANG))
     return ByteOrder_Util_x86_swap_16(x);
 
 #elif defined(BSLS_PLATFORM_CPU_SPARC)
@@ -671,6 +671,7 @@ unsigned int
 ByteOrder_Util::generic_swap_32(unsigned int x)
 {
 // Use built-in if possible; provided in gcc 4.3+.
+//KPF: Check for Clang builtin usage.
 #if defined(BSLS_PLATFORM_CMP_GNU) && BSLS_PLATFORM_CMP_VER_MAJOR >= 40300
     return __builtin_bswap32((int)x);
 
@@ -679,7 +680,7 @@ ByteOrder_Util::generic_swap_32(unsigned int x)
     return _byteswap_ulong(x);
 
 #elif (defined(BSLS_PLATFORM_CPU_X86) || defined(BSLS_PLATFORM_CPU_X86_64)) \
-   && defined(BSLS_PLATFORM_CMP_GNU)
+      && (defined(BSLS_PLATFORM_CMP_GNU) || defined(BSLS_PLATFORM_CMP_CLANG))
     return ByteOrder_Util_x86_swap_32(x);
 
 #elif defined(BSLS_PLATFORM_CPU_SPARC)
@@ -705,6 +706,7 @@ Types::Uint64
 ByteOrder_Util::generic_swap_64(Types::Uint64 x)
 {
 // Use built-in if possible; provided in gcc 4.3+.
+//KPF: Check for Clang builtin usage.
 #if defined(BSLS_PLATFORM_CMP_GNU) && BSLS_PLATFORM_CMP_VER_MAJOR >= 40300
     return __builtin_bswap64((Types::Int64)x);
 
@@ -713,7 +715,7 @@ ByteOrder_Util::generic_swap_64(Types::Uint64 x)
     return _byteswap_uint64(x);
 
 #elif (defined(BSLS_PLATFORM_CPU_X86) || defined(BSLS_PLATFORM_CPU_X86_64)) \
-    && defined(BSLS_PLATFORM_CMP_GNU)
+      && (defined(BSLS_PLATFORM_CMP_GNU) || defined(BSLS_PLATFORM_CMP_CLANG))
     return ByteOrder_Util_x86_swap_64(x);
 
 #elif defined(BSLS_PLATFORM_CPU_SPARC)

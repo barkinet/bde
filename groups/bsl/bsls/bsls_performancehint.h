@@ -378,7 +378,7 @@ namespace BloombergLP {
 // that support '__builtin_expect'.
 
 #if defined(BDE_BUILD_TARGET_OPT) &&                                          \
-   (defined(BSLS_PLATFORM_CMP_GNU) ||                                        \
+   (defined(BSLS_PLATFORM_CMP_GNU) || defined(BSLS_PLATFORM_CMP_CLANG) ||     \
    (defined(BSLS_PLATFORM_CMP_IBM) && BSLS_PLATFORM_CMP_VER_MAJOR >= 0x0900))
 
     #define BSLS_PERFORMANCEHINT_PREDICT_LIKELY(expr)                         \
@@ -469,7 +469,7 @@ struct PerformanceHint {
 inline
 void PerformanceHint::prefetchForReading(const void *address)
 {
-#if defined(BSLS_PLATFORM_CMP_GNU)
+#if defined(BSLS_PLATFORM_CMP_GNU) || defined(BSLS_PLATFORM_CMP_CLANG)
 
     __builtin_prefetch(address, 0);
 
@@ -500,7 +500,7 @@ void PerformanceHint::prefetchForReading(const void *address)
 inline
 void PerformanceHint::prefetchForWriting(void *address)
 {
-#if defined(BSLS_PLATFORM_CMP_GNU)
+#if defined(BSLS_PLATFORM_CMP_GNU) || defined(BSLS_PLATFORM_CMP_CLANG)
 
     __builtin_prefetch(address, 1);
 

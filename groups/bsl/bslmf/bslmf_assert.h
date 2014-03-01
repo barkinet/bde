@@ -207,7 +207,7 @@ typedef BloombergLP::bslmf::AssertTest< \
 // silence with _Pragam("GCC disagnostic ignored \"-Wwarning\""), so we switch
 // to an implementation declaring a function instead.  As with the typedef
 // based implementations, we must include '__LINE__' in the name of the
-// decalared function to allow multiple uses in the same class definition.
+// declared function to allow multiple uses in the same class definition.
 
 #define BSLMF_ASSERT(expr)                                      \
 void BSLMF_ASSERT_CAT(BDE_static_assert_declaration, __LINE__)( \

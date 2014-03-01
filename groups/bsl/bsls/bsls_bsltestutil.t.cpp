@@ -1874,11 +1874,11 @@ void TestDriver::testCase3(OutputRedirector                   *output,
 // Test case -1 checks the strategy used in test case 9 to detect stack
 // corruption by intentionally providing incorrect format strings to 'printf'.
 // This generates warnings that must be suppressed with a GCC pragma.  Some
-// versions of the gcc compiler do not allow pragmas inside function bodies
+// versions of the GCC compilers do not allow pragmas inside function bodies
 // (i.e. inside 'main'), so the test has been factored out into a separate
 // function.
 
-#ifdef BSLS_PLATFORM_CMP_GNU
+#if defined(BSLS_PLATFORM_CMP_GNU) || defined(BSLS_PLATFORM_CMP_CLANG)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wformat"
 #endif
@@ -1939,7 +1939,7 @@ void checkStackCorruptionTest()
     ASSERT(data.sentinel != SENTINEL_ONES);
 }
 
-#ifdef BSLS_PLATFORM_CMP_GNU
+#if defined(BSLS_PLATFORM_CMP_GNU) || defined(BSLS_PLATFORM_CMP_CLANG)
 #pragma GCC diagnostic pop
 #endif
 

@@ -10,14 +10,16 @@
 
 #include <bsls_platform.h>
 
-#ifdef BSLS_PLATFORM_CMP_GNU
+// Clang provides GCC compatibilty for diagnostic message related pragmas,
+// and does not provide its own pragmas for this purpose
+#if defined(BSLS_PLATFORM_CMP_GNU) || defined(BSLS_PLATFORM_CMP_CLANG)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
 #endif
 
 #include <bsls_protocoltest.h>
 
-#ifdef BSLS_PLATFORM_CMP_GNU
+#if defined(BSLS_PLATFORM_CMP_GNU) || defined(BSLS_PLATFORM_CMP_CLANG)
 #pragma GCC diagnostic pop
 #endif
 

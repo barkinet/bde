@@ -10290,6 +10290,7 @@ void mainTestCase9()
     // ASSIGNMENT OPERATOR
     // --------------------------------------------------------------------
 
+//KPF: Test this
 #if defined(BSLS_PLATFORM_CMP_CLANG)
     // The Clang compiler is known to be particularly slow executing this
     // test case, so we really cut back on the variations.  This was last

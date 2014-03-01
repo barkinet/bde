@@ -240,6 +240,7 @@ void testCase1(int argc, bool assert)
     // Only check under optimized build.
 
 #if defined(BSLS_PLATFORM_CMP_GNU) || defined(BSLS_PLATFORM_CMP_SUN) ||     \
+    defined(BSLS_PLATFORM_CMP_CLANG) ||                                     \
    (defined(BSLS_PLATFORM_CMP_IBM) && BSLS_PLATFORM_CMP_VER_MAJOR >= 0x0900)\
     // Only check when 'BSLS_PERFORMANCEHINT_PREDICT_LIKELY' and
     // 'BSLS_PERFORMANCEHINT_PREDICT_UNLIKELY' expands into something
@@ -390,7 +391,8 @@ void testCase3(int argc, bool assert)
     // Only check under optimized build.
 
 #if defined(BSLS_PLATFORM_CMP_GNU) || defined(BSLS_PLATFORM_CMP_IBM) ||     \
-    defined(BSLS_PLATFORM_CMP_SUN) || defined(BSLS_PLATFORM_OS_WINDOWS)
+    defined(BSLS_PLATFORM_CMP_SUN) || defined(BSLS_PLATFORM_OS_WINDOWS) ||  \
+    defined(BSLS_PLATFORM_CMP_CLANG)
     // Only check when 'prefetchForReading' or 'prefetchForWriting' expands
     // expands into something meaningful.
 

@@ -51,6 +51,7 @@ namespace bsl
     using native_std::tan;
     using native_std::tanh;
 
+//KPF: Figure out suitable Clang logic
 // C99 math functions are available in namespace std
 #if defined(BSLS_PLATFORM_CMP_GNU) \
     && defined(_GLIBCXX_USE_C99_MATH) \

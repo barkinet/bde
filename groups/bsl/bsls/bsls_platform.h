@@ -492,25 +492,26 @@ struct bsls_Platform_Assert;
     #pragma warning(disable : 4365)  // signed/unsigned size_t/bsls::SizeType
     #endif // BDE_HIDE_COMMON_WINDOWS_WARNINGS
 // ---------------------------------------------------------------------------
-#elif defined(__GNUC__) || defined(__EDG__)
+#elif defined(__GNUC__) || defined(__clang__) || defined(__EDG__)
 
-    #if defined (__GNUC__)
-        #define BSLS_PLATFORM_CMP_GNU 1
-
-        #if defined(__clang__)
-            // Clang is GCC compatible, but sometimes we need to know about it
-            #define BSLS_PLATFORM_CMP_CLANG 1
-            // We treat Clang as if it was GCC 4.4.0
-            #define BSLS_PLATFORM_CMP_VERSION (4 * 10000 \
-                            + 4 * 100)
+    // NOTE: Must test for __clang__ before __GNUC__, because Clang also defines __GNUC__
+    #if defined(__clang__)
+        #define BSLS_PLATFORM_CMP_CLANG 1
+        #if defined(__clang_patchlevel__)
+            #define BSLS_PLATFORM_CMP_VERSION (__clang_major__ * 10000		\
+                        + __clang_minor__ * 100 + __clang_patchlevel__)
         #else
-            #if defined(__GNUC_PATCHLEVEL__)
-                #define BSLS_PLATFORM_CMP_VERSION (__GNUC__ * 10000 \
-                            + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
-            #else
-                #define BSLS_PLATFORM_CMP_VERSION (__GNUC__ * 10000 \
-                            + __GNUC_MINOR__ * 100)
-            #endif
+            #define BSLS_PLATFORM_CMP_VERSION (__clang_major__ * 10000 \
+                        + __clang_minor__ * 100)
+        #endif
+    #elif defined(__GNUC__)
+        #define BSLS_PLATFORM_CMP_GNU 1
+        #if defined(__GNUC_PATCHLEVEL__)
+            #define BSLS_PLATFORM_CMP_VERSION (__GNUC__ * 10000			\
+                        + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+        #else
+            #define BSLS_PLATFORM_CMP_VERSION (__GNUC__ * 10000 \
+                        + __GNUC_MINOR__ * 100)
         #endif
     #else
         #define BSLS_PLATFORM_CMP_EDG 1
@@ -540,8 +541,10 @@ struct bsls_Platform_Assert;
     #elif defined(__APPLE__)
         #define BSLS_PLATFORM_OS_DARWIN 1
     #else
-        #if defined(__GNUC__)
+        #if defined(BSLS_PLATFORM_CMP_GNU)
             #error "Unable to determine on which OS GNU compiler is running."
+        #elif defined(BSLS_PLATFORM_CMP_CLANG)
+            #error "Unable to determine on which OS Clang compiler is running."
         #else
             #error "Unable to determine on which OS EDG compiler is running."
         #endif
@@ -605,8 +608,10 @@ struct bsls_Platform_Assert;
             #error "Unsupported ARM platform."
         #endif
     #else
-        #if defined(__GNUC__)
+        #if defined(BSLS_PLATFORM_CMP_GNU)
             #error "Unable to determine on which CPU GNU compiler is running."
+        #elif defined(BSLS_PLATFORM_CMP_CLANG)
+            #error "Unable to determine on which CPU Clang compiler is running."
         #else
             #error "Unable to determine on which CPU EDG compiler is running."
         #endif
@@ -757,30 +762,32 @@ struct bsls_Platform_Assert;
 
 #if !defined(BDE_DISABLE_COMPILER_VERSION_CHECK)
 
-#if defined(BSLS_PLATFORM_CMP_CLANG)
-    // No minimum supported compiler version has been identified yet.
-#elif defined(BSLS_PLATFORM_CMP_EDG)
+#if defined(BSLS_PLATFORM_CMP_EDG)
     // No minimum supported compiler version has been identified yet.
 #elif defined(BSLS_PLATFORM_CMP_HP)
 #  if BSLS_PLATFORM_CMP_VERSION < 62500
-#    error This early compiler is not supported by BDE
+#    error BDE is not supported on this compiler version
 #  endif
 #elif defined(BSLS_PLATFORM_CMP_IBM)
     // No minimum supported compiler version has been identified yet.
 #elif defined(BSLS_PLATFORM_CMP_SUN)
 #  if BSLS_PLATFORM_CMP_VERSION < 0x580
-#    error This early compiler is not supported by BDE
+#    error BDE is not supported on this compiler version
 #  endif
 #elif defined(BSLS_PLATFORM_CMP_GNU)
     // Test GNU late, as so many compilers offer a GNU compatibility mode.
 #  if BSLS_PLATFORM_CMP_VERSION < 40102
-#    error This early compiler is not supported by BDE
+#    error BDE is not supported on this compiler version
+#  endif
+#elif defined(BSLS_PLATFORM_CMP_CLANG)
+#  if BSLS_PLATFORM_CMP_VERSION < 30300
+#    error BDE is not supported on this compiler version
 #  endif
 #elif defined(BSLS_PLATFORM_CMP_MSVC)
     // Test MSVC last, as many compilers targeting windows offer a Microsoft
     // compatibility mode.
 #  if BSLS_PLATFORM_CMP_VERSION < 1500
-#    error This early compiler is not supported by BDE
+#    error BDE is not supported on this compiler version
 #  endif
 #else
 #  error This compiler is not recognized by BDE
@@ -797,6 +804,11 @@ struct bsls_Platform_Assert;
                         // Miscellaneous Platform Macros
 
 #if defined(BSLS_PLATFORM_CMP_GNU)
+    #define BSLS_PLATFORM_NO_64_BIT_LITERALS 1
+#endif
+
+#if defined(BSLS_PLATFORM_CMP_CLANG)
+//KPF: Determine if this is necessary
     #define BSLS_PLATFORM_NO_64_BIT_LITERALS 1
 #endif
 
@@ -819,6 +831,7 @@ struct bsls_Platform_Assert;
 // Exactly one CMP type.
 #if BSLS_PLATFORM_CMP_EDG  \
   + BSLS_PLATFORM_CMP_GNU  \
+  + BSLS_PLATFORM_CMP_CLANG \
   + BSLS_PLATFORM_CMP_HP   \
   + BSLS_PLATFORM_CMP_IBM  \
   + BSLS_PLATFORM_CMP_MSVC \
@@ -1065,6 +1078,9 @@ struct Platform {
 #ifdef BSLS_PLATFORM_CMP_GNU
 # define BDES_PLATFORM__CMP_GNU BSLS_PLATFORM_CMP_GNU
 #endif
+#ifdef BSLS_PLATFORM_CMP_CLANG
+# define BDES_PLATFORM__CMP_CLANG BSLS_PLATFORM_CMP_CLANG
+#endif
 #ifdef BSLS_PLATFORM_CMP_HP
 # define BDES_PLATFORM__CMP_HP BSLS_PLATFORM_CMP_HP
 #endif
@@ -1154,6 +1170,9 @@ struct Platform {
 #endif
 #ifdef BSLS_PLATFORM_CMP_GNU
 # define BSLS_PLATFORM__CMP_GNU BSLS_PLATFORM_CMP_GNU
+#endif
+#ifdef BSLS_PLATFORM_CMP_CLANG
+# define BSLS_PLATFORM__CMP_CLANG BSLS_PLATFORM_CMP_CLANG
 #endif
 #ifdef BSLS_PLATFORM_CMP_HP
 # define BSLS_PLATFORM__CMP_HP BSLS_PLATFORM_CMP_HP

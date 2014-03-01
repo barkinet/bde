@@ -56,6 +56,7 @@ BSLS_IDENT("$Id: $")
 
 namespace BloombergLP {
 
+//KPF: This makes no sense; should probably use a compiler feature for __attribute__((used))
 #if  (defined(BSLS_PLATFORM_OS_LINUX) && defined(BSLS_PLATFORM_CMP_GNU)) \
   || defined(BSLS_PLATFORM_OS_DARWIN)
 #define BSLS_LINKCOERCION_FORCE_SYMBOL_DEPENDENCY(type,             \

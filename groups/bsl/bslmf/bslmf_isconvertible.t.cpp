@@ -10,10 +10,10 @@
 
 // These 4 compilers cannot handle conversions to/from cv-qualified types
 // in all cases.
-#if defined(BSLS_PLATFORM_CMP_SUN)  \
- || defined(BSLS_PLATFORM_CMP_MSVC) \
- || defined(BSLS_PLATFORM_CMP_HP)   \
- || defined(BSLS_PLATFORM_CMP_CLANG)
+#if defined(BSLS_PLATFORM_CMP_SUN) || \
+    defined(BSLS_PLATFORM_CMP_MSVC) || \
+    defined(BSLS_PLATFORM_CMP_HP) || \
+    defined(BSLS_PLATFORM_CMP_CLANG)
     #define BSLMF_ODD_COMPILER_CONST_OR_VOLATILE_CONVERSION_RULES
 #endif
 

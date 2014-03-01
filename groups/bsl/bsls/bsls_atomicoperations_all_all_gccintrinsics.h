@@ -383,7 +383,7 @@ Types::Int64 AtomicOperations_ALL_ALL_GCCIntrinsics::
 
 }  // close enterprise namespace
 
-#endif  // BSLS_PLATFORM_CMP_GNU || BSLS_PLATFORM_CMP_CLANG
+#endif  // BSLS_PLATFORM_CMP_GNU && BSLS_PLATFORM_CMP_VERSION >= 40700
 
 #endif
 
